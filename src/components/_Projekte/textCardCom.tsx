@@ -2,21 +2,19 @@ import Link from 'next/link';
 import { useState, Dispatch, SetStateAction } from 'react';
 // @mui
 
-import { ImageType, ProjectType } from '../../utils/TS/interface';
+import { ProjectType } from '../../utils/TS/interface';
 import useResponsive from '../../hooks/useResponsive';
 import { firstLettersBig } from '../../utils/Text/textUtils';
 import { Box } from '@mui/system';
-import { Grid, CardActions, CardContent, Card } from '@mui/material';
+import { Grid, CardContent, Card } from '@mui/material';
 
-import { PATH_PROJEKTE, PATH_REV } from '../../routes/paths';
-import useAuth from 'src/utils/firebaseAuth/useAuth';
-import { deleteProjectFromFirestore } from '../../utils/apis/deleteFromFirestore';
-import { deleteImage } from 'src/utils/apis/uploadPhoto';
-import { DeleteDialogCom } from '../_Reusable/DeleteDialogCom';
-import { EditDeleteIconCom } from '../_Reusable/EditDeleteIconCom';
+import { PATH_PROJEKTE, } from '../../routes/paths';
+
+
+
 import { TitleTextCom } from '../_Reusable/TitleTextCom';
 import { BodyTextCom } from '../_Reusable/BodyTextCom';
-import { revalidateURL } from 'src/utils/myUtils/revalidateURL';
+
 
 export function TextCardCom({
   project,
@@ -41,7 +39,7 @@ export function TextCardCom({
   const [open, setOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lm');
   const isMiddle = useResponsive('down', 'md');
-  const { isAuthenticated } = useAuth();
+
   const isBigAndDisplaysDesktop = isDesktop && big;
 
   const cardPropsBig = {
@@ -61,7 +59,7 @@ export function TextCardCom({
     pt: isMiddle ? 2 : 4.75,
     width: '100%',
     cursor: 'pointer',
-    height: isAuthenticated ? '70%' : '100%',
+    height: '100%',
     '&:hover': {
       textShadow: '#979797 1px 0 10px'
     },
@@ -69,31 +67,8 @@ export function TextCardCom({
       textShadow: '#979797 1px 0 10px'
     },
   };
-  function handleOpen() {
-    setOpen(true);
-  };
-  function handleClose() {
-    setOpen(false);
-  };
-  function handleDelete() {
-    setLoading(true);
-    deleteProjectFromFirestore('projects', id)
-      .then(() => {
-        if (photo.url) { deleteImage(photo.url); }
-        if (photos.length > 0) { photos.map((photo: ImageType) => deleteImage(photo.url)) };
-        fetch(revalidateURL(PATH_PROJEKTE.projekte)).then(() => {
-          setLoading(false);
-          setSucces(true);
-        })
-      })
-      .catch((error) => {
-        //console.log('error', error);
-        setError(error);
-        setLoading(false);
-      });
 
-    setOpen(false);
-  };
+
   const TextBox = () => (
     <Grid
       container
@@ -111,11 +86,7 @@ export function TextCardCom({
           <BodyTextCom text={firstLettersBig(location)} sx={{ pt: .4 }} />
         </CardContent>
       </Link>
-      {isAuthenticated && (
-        <CardActions sx={{ p: 0 }}>
-          <EditDeleteIconCom handleOpen={handleOpen} editURL={`${PATH_PROJEKTE.editProject}/${id}`} />
-        </CardActions>
-      )}
+
     </Grid>
   )
 
@@ -140,13 +111,7 @@ export function TextCardCom({
           </Box>
         </Card>
       }
-      <DeleteDialogCom
-        open={open}
-        handleClose={handleClose}
-        handleDelete={handleDelete}
-        objectToBeDeled="Projekt"
-        titleOfObjectToBeDeled={`${title.toUpperCase()}`}
-      />
+
     </>
   )
 }

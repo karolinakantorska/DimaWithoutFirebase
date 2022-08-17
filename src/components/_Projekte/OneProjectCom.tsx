@@ -9,8 +9,8 @@ import CarouselBasic3 from '../carousel/CarouselBasic3';
 
 import { TitleTextCom } from '../_Reusable/TitleTextCom';
 import { BodyTextCom } from '../_Reusable/BodyTextCom';
-import { useContext, useEffect } from 'react';
-import { ReloadContext } from 'src/contexts/RevalidateContext';
+import { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 
 export function OneProjectCom({ project }: { project: ProjectType }) {
@@ -114,7 +114,8 @@ export function OneProjectCom({ project }: { project: ProjectType }) {
   )
 
   if (project) {
-    const photosCarusel = [project.photo, ...project.photos]
+    const photos = project.photos ? project.photos : []
+    const photosCarusel = [project.photo, ...photos]
     return (
       <>
         <Stack

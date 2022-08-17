@@ -16,7 +16,7 @@ import { menuConfigUser, menuConfigAdmin } from './MenuConfig';
 import PhoneNrCom from './PhoneNrCom';
 
 import DimaLogoCom from 'src/components/DimaLogoCom';
-import useAuth from 'src/utils/firebaseAuth/useAuth';
+
 
 
 // ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ export default function MainHeader() {
   const isDesktop = useResponsive('up', 'lm');
   const isSmall = useResponsive('down', 'sm');
   const isMiddle = useResponsive('down', 'md');
-  const { isAuthenticated } = useAuth();
+
   const gtc = isDesktop ? 'repeat(3, 1fr)' : isMiddle ? '1fr' : 'repeat(2, 1fr)';
   const gc = isDesktop ? '3/4' : '2/3';
 
@@ -102,7 +102,7 @@ export default function MainHeader() {
 
             {!isMiddle && <PhoneNrCom />}
             <MenuMobile
-              navConfig={isAuthenticated ? [...menuConfigAdmin] : [...menuConfigUser]} size={isDesktop ? 40 : isSmall ? 30 : 34}
+              navConfig={[...menuConfigUser]} size={isDesktop ? 40 : isSmall ? 30 : 34}
             />
           </Box>
         </Container>

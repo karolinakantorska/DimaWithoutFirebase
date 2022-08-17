@@ -25,7 +25,7 @@ import Scrollbar from 'src/components/Scrollbar';
 import { HEADER } from 'src/config';
 //
 import { MenuProps, } from './type';
-import useAuth from 'src/utils/firebaseAuth/useAuth';
+
 import { PATH_LOGIN } from 'src/routes/paths';
 import Link from 'next/link';
 import { MenuMobileItem } from './MenuMobileItem';
@@ -68,7 +68,7 @@ export default function MenuMobile({ navConfig, size }: MenuProps) {
 
   //const [open, setOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { logout, isAuthenticated } = useAuth();
+
 
   // TODO not closing in PC view
   useEffect(() => {
@@ -128,29 +128,8 @@ export default function MenuMobile({ navConfig, size }: MenuProps) {
                     />
 
                   ))}
-                  {!isAuthenticated &&
-                    <Link href={PATH_LOGIN.login} passHref>
-                      <ListItemStyle onClick={() => logout()} >
-                        <ListItemText
-                          primaryTypographyProps={{
-                            color: 'text.disabled',
-                            variant: 'h5',
-                          }}
-                          primary={'Anmelden'.toUpperCase()}
-                        />
-                      </ListItemStyle>
-                    </Link>
-                  }
-                  {isAuthenticated &&
-                    <ListItemStyle onClick={() => logout()} >
-                      <ListItemText
-                        primaryTypographyProps={{
-                          color: 'text.disabled',
-                          variant: 'h5',
-                        }}
-                        primary={'Ausnmelden'.toUpperCase()}
-                      />
-                    </ListItemStyle>}
+
+
                 </Stack>
               </List>
 

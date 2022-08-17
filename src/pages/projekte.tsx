@@ -5,8 +5,8 @@ import Layout from 'src/layouts';
 import Page from 'src/components/Page';
 
 import { ProjectsListCom } from 'src/components/_Projekte/projectsListCom';
-import { getOrderedCollection } from "src/utils/apis/apis";
 
+import { _mockProjekts } from 'src/_mock/referenzen/referenzen';
 // ----------------------------------------------------------------------
 
 Projekte.getLayout = function getLayout(page: React.ReactElement) {
@@ -15,17 +15,13 @@ Projekte.getLayout = function getLayout(page: React.ReactElement) {
 
 // ----------------------------------------------------------------------
 export default function Projekte(props: any) {
-  const { data } = props;
+
+  const data = props;
   return (
     <Page title="Projekte">
-      <ProjectsListCom projectsList={data} />
+      <ProjectsListCom projectsList={_mockProjekts} />
     </Page>
 
   );
 }
-export const getStaticProps: GetStaticProps = async () => {
-  const data = await getOrderedCollection("projects", "year", "desc");
-  return {
-    props: { data },
-  };
-};
+

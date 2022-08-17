@@ -4,9 +4,9 @@ import Layout from 'src/layouts';
 import { GetStaticProps } from "next";
 // components
 import Page from 'src/components/Page';
-import { getOrderedCollection } from "src/utils/apis/apis";
-import { TeamListCom } from 'src/components/_Team/TeamListCom';
 
+import { TeamListCom } from 'src/components/_Team/TeamListCom';
+import { team } from 'src/_mock/team/team';
 // ----------------------------------------------------------------------
 
 Teams.getLayout = function getLayout(page: React.ReactElement) {
@@ -15,21 +15,14 @@ Teams.getLayout = function getLayout(page: React.ReactElement) {
 
 // ----------------------------------------------------------------------
 
-export default function Teams(props: any) {
-  const { data } = props;
+export default function Teams() {
+
   //console.log('data: ', data)
 
   return (
     <Page title="Teams">
-      <TeamListCom teamList={data} />
+      <TeamListCom teamList={team} />
     </Page>
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const data = await getOrderedCollection("team", "displayOrder", "asc");
-  return {
-    props: { data },
-    //revalidate: 60,
-  };
-};

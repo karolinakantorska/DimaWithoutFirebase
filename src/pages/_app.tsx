@@ -8,7 +8,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 //Auth
-import { AuthProvider } from '../contexts/FirebaseContext';
+
 import { ReactElement, ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
 // next
@@ -29,7 +29,7 @@ import ThemeSettings from '../components/settings';
 import ProgressBar from '../components/ProgressBar';
 import MotionLazyContainer from '../components/animate/MotionLazyContainer';
 import { defaultSettings } from '../config';
-import { ReloadProvider } from 'src/contexts/RevalidateContext';
+
 
 // ----------------------------------------------------------------------
 
@@ -54,30 +54,28 @@ export default function MyApp(
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <AuthProvider>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <CollapseDrawerProvider>
-            <SettingsProvider defaultSettings={defaultSettings}>
-              <MotionLazyContainer>
-                <ThemeProvider>
-                  <ThemeSettings>
-                    <ProgressBar />
-                    <AnimatePresence
-                      exitBeforeEnter={false}
-                    >
-                      {getLayout(<Component
-                        {...pageProps}
-                        key={router.route}
-                      />)}
-                    </AnimatePresence>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CollapseDrawerProvider>
+          <SettingsProvider defaultSettings={defaultSettings}>
+            <MotionLazyContainer>
+              <ThemeProvider>
+                <ThemeSettings>
+                  <ProgressBar />
+                  <AnimatePresence
+                    exitBeforeEnter={false}
+                  >
+                    {getLayout(<Component
+                      {...pageProps}
+                      key={router.route}
+                    />)}
+                  </AnimatePresence>
 
-                  </ThemeSettings>
-                </ThemeProvider>
-              </MotionLazyContainer>
-            </SettingsProvider>
-          </CollapseDrawerProvider>
-        </LocalizationProvider>
-      </AuthProvider>
+                </ThemeSettings>
+              </ThemeProvider>
+            </MotionLazyContainer>
+          </SettingsProvider>
+        </CollapseDrawerProvider>
+      </LocalizationProvider>
     </>
   );
 }

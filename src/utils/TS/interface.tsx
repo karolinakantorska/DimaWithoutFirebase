@@ -10,9 +10,6 @@ export interface ProjectType {
   startYear: Date;
   year: Date;
   objektAlter: ObjektAlter;
-  //objektType: ObjektTypes;
-  //services: ArrayOfServicesType;
-  //timeStamp: number;
   region: Regionen;
   phase: Phase;
   client: string;
@@ -20,17 +17,9 @@ export interface ProjectType {
   architect: Company;
   realisation: string,
   bauleitung: string,
-  /*
-  cooperation: {
-    service: Services | string;
-    company: Company;
-  };
-  */
   location: string;
   video?: string;
-  //finished: boolean;
   big: boolean;
-  //constructionStart: number;
 }
 export type ProjectsListType = ProjectType[];
 
